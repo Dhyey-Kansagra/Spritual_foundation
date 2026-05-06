@@ -9,12 +9,13 @@ export default function Footer() {
             <div className="om">🕉</div>
             <h3>My Spiritual Foundation</h3>
             <p>A charitable trust dedicated to serving humanity through the divine path of seva. Based in Rajkot, Gujarat, India.</p>
-            <p style={{marginTop:'8px',fontStyle:'italic',color:'var(--gold)'}}>"Seva Parmo Dharma"</p>
+            <p style={{ marginTop: '8px', fontStyle: 'italic', color: 'var(--gold)' }}>"Seva Parmo Dharma"</p>
             <div className="social-icons">
-              <a href="#" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
-              <a href="#" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-              <a href="#" aria-label="YouTube"><i className="fab fa-youtube"></i></a>
-              <a href="#" aria-label="WhatsApp"><i className="fab fa-whatsapp"></i></a>
+
+              <a href="https://www.instagram.com/myspiritualfoundation?igsh=ejVycDdzeHIwbXI0" target="_blank" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/myspiritualfoundation?igsh=ejVycDdzeHIwbXI0" target="_blank" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
+              <a href="https://youtube.com/@myspiritualfoundationhome?si=gteT6oXW8_cmr3VB" target="_blank" aria-label="YouTube"><i className="fab fa-youtube"></i></a>
+              <a href="https://wa.me/917623079610" target="_blank" aria-label="WhatsApp"><i className="fab fa-whatsapp"></i></a>
             </div>
           </div>
           <div>
@@ -40,10 +41,10 @@ export default function Footer() {
           <div>
             <h4>Contact</h4>
             <ul>
-              <li><i className="fas fa-map-marker-alt" style={{color:'var(--saffron)',marginRight:'8px'}}></i>A/8, Aalap Avenue, Pushkardham Main Road</li>
-              <li style={{marginLeft:'22px'}}>JK Chowk, Rajkot, Gujarat</li>
-              <li><i className="fas fa-phone" style={{color:'var(--saffron)',marginRight:'8px'}}></i>+91 98765 43210</li>
-              <li><i className="fas fa-envelope" style={{color:'var(--saffron)',marginRight:'8px'}}></i>info@myspiritualfoundation.org</li>
+              <li style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}><i className="fas fa-map-marker-alt" style={{ color: 'var(--saffron)', marginTop: '3px' }}></i><span>A/8, Aalap Avenue, Pushkardham Main Road, JK Chowk, Rajkot, Gujarat</span></li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><i className="fas fa-phone" style={{ color: 'var(--saffron)' }}></i><span>+91 98765 43210</span></li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><i className="fas fa-envelope" style={{ color: 'var(--saffron)' }}></i><span>info@myspiritualfoundation.org</span></li>
+
             </ul>
           </div>
         </div>

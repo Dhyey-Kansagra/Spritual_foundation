@@ -13,7 +13,7 @@ import useFadeUp from '../hooks/useFadeUp'
    First time: You'll get a confirmation email from
    FormSubmit — click the link to activate. That's it!
    ────────────────────────────────────────────── */
-const FOUNDATION_EMAIL = 'YOUR_EMAIL@gmail.com'  // ← Put your real email here
+const FOUNDATION_EMAIL = 'kpatel12359@gmail.com'  // ← Put your real email here
 
 const amounts = [501, 1001, 2101, 5100, 11000]
 
@@ -50,8 +50,9 @@ export default function Donate() {
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({
             _subject: `🙏 New Donation: ₹${Number(donation).toLocaleString('en-IN')} from ${form.name}`,
+            // _replyto: form.email,
             _replyto: form.email,
-            _autoresponse: `🙏 Jai Shree Krishna, ${form.name || 'Dear Devotee'}!\n\nThank you for your generous donation of ₹${Number(donation).toLocaleString('en-IN')} towards ${form.purpose || 'General Seva Fund'}.\n\nYour selfless seva will bring smiles to many faces.\n"Manav Seva Madhav Seva — Serving Humanity is Serving God"\n\nMay Lord Krishna bless you and your family abundantly. 🙏\n\nWith divine blessings,\nMy Spiritual Foundation\nA/8, Aalap Avenue, Pushkardham Main Road\nJK Chowk, Rajkot, Gujarat, India\n\n🙏 Seva Parmo Dharma 🙏`,
+            _autoresponse: `🙏 Jai Shree Krishna, ${form.name || 'Dear Devotee'}! Thank you for your generous donation of ₹${Number(donation).toLocaleString('en-IN')} towards ${form.purpose || 'General Seva Fund'}. Your selfless seva will bring smiles to many faces. Manav Seva Madhav Seva - Serving Humanity is Serving God. May Lord Krishna bless you and your family abundantly. With divine blessings, My Spiritual Foundation, Rajkot, Gujarat. Seva Parmo Dharma.`,
             _template: 'table',
             _captcha: 'false',
             'Donor Name': form.name || 'Anonymous',
@@ -165,10 +166,10 @@ export default function Donate() {
                 </div>
                 <div className="form-group">
                   <label>Phone Number</label>
-                  <input type="tel" placeholder="+91 98765 43210" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} required />
+                  <input type="tel" placeholder="+91 XXXXX XXXXX" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} required />
                 </div>
                 <div className="form-group">
-                  <label>Email <span style={{ color: 'var(--saffron)', fontSize: '0.8rem' }}>(required for thank-you email)</span></label>
+                  <label>Email <span style={{ color: 'var(--saffron)', fontSize: '0.8rem' }}></span></label>
                   <input type="email" placeholder="your@email.com" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
                 </div>
                 <div className="form-group">

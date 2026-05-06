@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
 import useFadeUp from '../hooks/useFadeUp'
 
+const FOUNDATION_EMAIL = 'kpatel12359@gmail.com'
 const volTypes = [
   { icon: '🍱', title: 'Food Seva Volunteer', desc: 'Help prepare and distribute food kits to families in need.' },
   { icon: '📚', title: 'Education Volunteer', desc: 'Teach, tutor, or distribute educational materials to students.' },
@@ -14,10 +15,35 @@ export default function Contact() {
   const ref = useFadeUp()
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    alert('🙏 Thank you for reaching out!\nWe will get back to you soon.\n\nJai Shree Krishna!')
+ const handleSubmit = async (e) => {
+  e.preventDefault()
+  try {
+    const response = await fetch(`https://formsubmit.co/ajax/${FOUNDATION_EMAIL}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _subject: `📩 New Contact Message from ${form.name}`,
+        _replyto: form.email,
+        _autoresponse: `🙏 Jai Shree Krishna, ${form.name}!\n\nThank you for contacting My Spiritual Foundation.\nWe will get back to you within 24 hours.\n\n"Manav Seva Madhav Seva"\n\nWith divine blessings,\nMy Spiritual Foundation\nRajkot, Gujarat 🙏`,
+        _captcha: 'false',
+        _template: 'table',
+        'Name': form.name,
+        'Email': form.email,
+        'Phone': form.phone || 'Not provided',
+        'Subject': form.subject || 'General Inquiry',
+        'Message': form.message,
+      })
+    })
+    if (response.ok) {
+      alert('🙏 Thank you! Your message has been sent.\nWe will get back to you soon.\n\nJai Shree Krishna!')
+      setForm({ name: '', email: '', phone: '', subject: '', message: '' })
+    } else {
+      alert('Something went wrong. Please try again.')
+    }
+  } catch (err) {
+    alert('Something went wrong. Please try again.')
   }
+}
 
   return (
     <div ref={ref}>
@@ -32,7 +58,7 @@ export default function Contact() {
                 ['fas fa-map-marker-alt', 'Our Location', 'A/8, Aalap Avenue, Pushkardham Main Road, JK Chowk, Rajkot, Gujarat, India'],
                 ['fas fa-phone-alt', 'Phone', '+91 98765 43210\n+91 98765 43211'],
                 ['fas fa-envelope', 'Email', 'info@myspiritualfoundation.org\nseva@myspiritualfoundation.org'],
-                ['fas fa-clock', 'Seva Hours', 'Monday – Saturday: 9:00 AM – 6:00 PM\nSunday: By Appointment'],
+                ['fas fa-clock', 'Seva Hours', 'Monday – Sunday: 9:00 AM – 5:00 PM\nEveryday: By Appointment'],
               ].map(([icon, title, text], i) => (
                 <div className="info-card" key={i}>
                   <div className="ic-icon"><i className={icon}></i></div>
@@ -59,7 +85,7 @@ export default function Contact() {
                 </div>
                 <div className="form-group">
                   <label>Phone</label>
-                  <input type="tel" placeholder="+91 98765 43210" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
+                  <input type="tel" placeholder="+91 XXXXX XXXXX" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
                 </div>
                 <div className="form-group">
                   <label>Subject</label>
@@ -83,7 +109,7 @@ export default function Contact() {
 
           {/* MAP */}
           <div className="map-container fade-up" style={{ marginTop: 50 }}>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.169!2d70.7833!3d22.2833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDE3JzAwLjAiTiA3MMKwNDcnMDAuMCJF!5e0!3m2!1sen!2sin!4v1" title="Location Map" loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.814543965297!2d70.75318927383965!3d22.285013943452093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959cb0029b7be83%3A0x2cfbe4b2e128edb6!2sMY%20SPIRITUAL%20FOUNDATION%20HOME%20-RAJKOT!5e0!3m2!1sen!2sin!4v1778064260401!5m2!1sen!2sin" title="Location Map" loading="lazy"></iframe>
           </div>
         </div>
       </section>

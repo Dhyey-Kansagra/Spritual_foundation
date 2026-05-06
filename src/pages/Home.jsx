@@ -101,7 +101,7 @@ export default function Home() {
               <div className="gallery-item" key={i} style={{ background: g.bg }}>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ fontSize: '3rem' }}>{g.emoji}</div>
-                  <div style={{ marginTop: 8, fontWeight: 600 }}>{g.label}</div>
+                  <div style={{ marginTop: 15, fontWeight: 600, fontSize:"2rem" }}>{g.label}</div>
                 </div>
               </div>
             ))}
@@ -149,7 +149,7 @@ export default function Home() {
             <p>We welcome you with open arms</p>
           </div>
           <div className="map-container fade-up">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.169!2d70.7833!3d22.2833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDE3JzAwLjAiTiA3MMKwNDcnMDAuMCJF!5e0!3m2!1sen!2sin!4v1" title="Location Map" loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.814543965297!2d70.75318927383965!3d22.285013943452093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959cb0029b7be83%3A0x2cfbe4b2e128edb6!2sMY%20SPIRITUAL%20FOUNDATION%20HOME%20-RAJKOT!5e0!3m2!1sen!2sin!4v1778064260401!5m2!1sen!2sin" title="Location Map" loading="lazy"></iframe>
           </div>
         </div>
       </section>
