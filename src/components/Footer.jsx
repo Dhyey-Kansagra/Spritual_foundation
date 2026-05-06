@@ -1,0 +1,56 @@
+import { Link } from 'react-router-dom'
+
+export default function Footer() {
+  return (
+    <footer className="footer">
+      <div className="container">
+        <div className="footer-grid">
+          <div className="footer-brand">
+            <div className="om">🕉</div>
+            <h3>My Spiritual Foundation</h3>
+            <p>A charitable trust dedicated to serving humanity through the divine path of seva. Based in Rajkot, Gujarat, India.</p>
+            <p style={{marginTop:'8px',fontStyle:'italic',color:'var(--gold)'}}>"Seva Parmo Dharma"</p>
+            <div className="social-icons">
+              <a href="#" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
+              <a href="#" aria-label="YouTube"><i className="fab fa-youtube"></i></a>
+              <a href="#" aria-label="WhatsApp"><i className="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+          <div>
+            <h4>Quick Links</h4>
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/services">Our Seva</Link></li>
+              <li><Link to="/donate">Donate</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Our Seva</h4>
+            <ul>
+              <li><Link to="/services">Food Distribution</Link></li>
+              <li><Link to="/services">Clothes Donation</Link></li>
+              <li><Link to="/services">Medical Equipment</Link></li>
+              <li><Link to="/services">Books Donation</Link></li>
+              <li><Link to="/services">Seasonal Seva</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Contact</h4>
+            <ul>
+              <li><i className="fas fa-map-marker-alt" style={{color:'var(--saffron)',marginRight:'8px'}}></i>A/8, Aalap Avenue, Pushkardham Main Road</li>
+              <li style={{marginLeft:'22px'}}>JK Chowk, Rajkot, Gujarat</li>
+              <li><i className="fas fa-phone" style={{color:'var(--saffron)',marginRight:'8px'}}></i>+91 98765 43210</li>
+              <li><i className="fas fa-envelope" style={{color:'var(--saffron)',marginRight:'8px'}}></i>info@myspiritualfoundation.org</li>
+            </ul>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>© {new Date().getFullYear()} My Spiritual Foundation. Made with <span className="heart">♥</span> for Seva | 🙏 Jai Shree Krishna</p>
+        </div>
+      </div>
+    </footer>
+  )
+}
