@@ -12,7 +12,8 @@ export default function About() {
       <section className="section">
         <div className="container">
           <div className="about-flex fade-up">
-            <div className="about-img" style={{ background: 'linear-gradient(135deg, var(--peacock-blue), var(--maroon))' }}>🙏</div>
+
+            <div className="about-img" style={{backgroundImage:"url('/images/our.jpg')",  }}></div>
             <div className="about-text">
               <h2>Our Story</h2>
               <p>My Spiritual Foundation was born from a deep desire to serve humanity as a form of worship. Founded in the sacred city of Rajkot, Gujarat, our trust draws inspiration from the timeless teachings of Lord Krishna and the Vaishnava tradition of selfless service.</p>

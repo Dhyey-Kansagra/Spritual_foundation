@@ -10,12 +10,13 @@ const services = [
   { icon: '🎒', title: 'Seasonal Item Seva', desc: 'Blankets in winter, umbrellas in monsoon — seva for every season.' },
 ]
 
+
 const gallery = [
-  { bg: 'linear-gradient(135deg, #FF6B00, #ff8533)', emoji: '🍱', label: 'Food Seva' },
-  { bg: 'linear-gradient(135deg, #E8A0BF, #d580a8)', emoji: '🎉', label: 'Joy Seva' },
-  { bg: 'linear-gradient(135deg, #1B4F72, #2a6fa0)', emoji: '📚', label: 'Education' },
-  { bg: 'linear-gradient(135deg, #D4AF37, #c4a030)', emoji: '🙏', label: 'Devotion' },
-  { bg: 'linear-gradient(135deg, #6B1A1A, #8b2a2a)', emoji: '❤️', label: 'Love' },
+  { img: '/images/Food.png', label: 'Food Seva' },
+  { img: '/images/Joy.png', label: 'Joy Seva' },
+  { img: '/images/Education.png', label: 'Education' },
+  { img: '/images/Devotion.png', label: 'Devotion' },
+  { img: '/images/Love.png', label: 'Love' },
 ]
 
 export default function Home() {
@@ -47,7 +48,7 @@ export default function Home() {
       <section className="section about-preview">
         <div className="container">
           <div className="about-flex fade-up">
-            <div className="about-img">🙏</div>
+            <div className="about-img" style={{ backgroundImage: "url('/images/About.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
             <div className="about-text">
               <h2>Who We Are</h2>
               <p>My Spiritual Foundation is a Rajkot-based charitable trust rooted in the divine philosophy of <strong>"Manav Seva Madhav Seva"</strong> — Serving Humanity is Serving God. We believe that every act of kindness is an offering to the divine.</p>
@@ -98,10 +99,9 @@ export default function Home() {
           </div>
           <div className="gallery-grid fade-up">
             {gallery.map((g, i) => (
-              <div className="gallery-item" key={i} style={{ background: g.bg }}>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: '3rem' }}>{g.emoji}</div>
-                  <div style={{ marginTop: 15, fontWeight: 600, fontSize:"2rem" }}>{g.label}</div>
+              <div className="gallery-item" key={i} style={{ backgroundImage: `url('${g.img}')`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(transparent, rgba(0,0,0,0.6))', padding: '12px 8px', textAlign: 'center' }}>
+                  <div style={{ color: 'white', fontWeight: 600, fontSize: '1.7rem' }}>{g.label}</div>
                 </div>
               </div>
             ))}
