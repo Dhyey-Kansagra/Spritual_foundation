@@ -49,7 +49,7 @@ export default function Home() {
         <div className="container">
           <div className="about-flex fade-up">
             <div className="about-img" style={{ backgroundImage: "url('/images/About.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
-            <div className="about-text">
+            <div className="about-text" style={{textAlign:'center'}}>
               <h2>Who We Are</h2>
               <p>My Spiritual Foundation is a Rajkot-based charitable trust rooted in the divine philosophy of <strong>"Manav Seva Madhav Seva"</strong> — Serving Humanity is Serving God. We believe that every act of kindness is an offering to the divine.</p>
               <p>Inspired by the eternal teachings of Sanatan Dharma and Vaishnava traditions, we serve the underprivileged with love, compassion, and dedication.</p>
@@ -73,8 +73,8 @@ export default function Home() {
           </div>
           <div className="cards-grid">
             {services.map((s, i) => (
-              <div className="card fade-up" key={i}>
-                <div className="icon">{s.icon}</div>
+              <div className="card fade-up" key={i} >
+                <div className="icon" >{s.icon}</div>
                 <h3>{s.title}</h3>
                 <p>{s.desc}</p>
               </div>

@@ -2,17 +2,7 @@ import { useState } from 'react'
 import PageHeader from '../components/PageHeader'
 import useFadeUp from '../hooks/useFadeUp'
 
-/* ──────────────────────────────────────────────
-   🔧 FORMSUBMIT CONFIGURATION (FREE & NO SIGNUP)
-   ──────────────────────────────────────────────
-   Replace the email below with your foundation's
-   real email address. FormSubmit will:
-   1. Send YOU a notification of the donation
-   2. Auto-reply a thank-you to the DONOR
-   
-   First time: You'll get a confirmation email from
-   FormSubmit — click the link to activate. That's it!
-   ────────────────────────────────────────────── */
+
 const FOUNDATION_EMAIL = 'kpatel12359@gmail.com'  // ← Put your real email here
 
 const amounts = [501, 1001, 2101, 5100, 11000]
@@ -42,7 +32,7 @@ export default function Donate() {
     setSending(true)
     let status = 'no-email'
 
-    // Send via FormSubmit (free, no signup needed)
+    // Send via FormSubmit 
     if (form.email && form.email.trim() !== '') {
       try {
         const response = await fetch(`https://formsubmit.co/ajax/${FOUNDATION_EMAIL}`, {
@@ -50,9 +40,11 @@ export default function Donate() {
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({
             _subject: `🙏 New Donation: ₹${Number(donation).toLocaleString('en-IN')} from ${form.name}`,
-            // _replyto: form.email,
             _replyto: form.email,
+
             _autoresponse: `🙏 Jai Shree Krishna, ${form.name || 'Dear Devotee'}! Thank you for your generous donation of ₹${Number(donation).toLocaleString('en-IN')} towards ${form.purpose || 'General Seva Fund'}. Your selfless seva will bring smiles to many faces. Manav Seva Madhav Seva - Serving Humanity is Serving God. May Lord Krishna bless you and your family abundantly. With divine blessings, My Spiritual Foundation, Rajkot, Gujarat. Seva Parmo Dharma.`,
+            _replyto: form.email,
+            _cc: form.email,
             _template: 'table',
             _captcha: 'false',
             'Donor Name': form.name || 'Anonymous',
@@ -74,6 +66,53 @@ export default function Donate() {
     setEmailStatus(status)
     setShowModal(true)
   }
+
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault()
+  //   try {
+  //     const response = await fetch(`https://formsubmit.co/ajax/${FOUNDATION_EMAIL}`, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+  //       body: JSON.stringify({
+  //         _subject: `📩 New Donation from ${form.name}`,
+  //         _captcha: 'false',
+  //         _template: 'table',
+  //         'Name': form.name,
+  //         'Email': form.email,
+  //         'Phone': form.phone || 'Not provided',
+  //         'amount': `₹${Number(donation).toLocaleString('en-IN')}`,
+  //         'Purpose': form.purpose || 'General Seva Fund',
+  //         'Message': form.message || 'No message',
+  //       })
+  //     })
+
+  //     await emailjs.send(
+  //       'service_1f198yj',
+  //       'template_4i7s6xb',
+  //       {
+  //         to_name: form.name,
+  //         to_email: form.email,
+  //         amount: `₹${Number(selectedAmt || customAmt).toLocaleString('en-IN')}`,
+  //         purpose: form.purpose || 'General Seva Fund',
+  //       },
+  //       'oRwir5858JPD7lRHN'
+  //     )
+
+  //     if (response.ok) {
+  //       alert('🙏 Thank you! Your donation has been received.\nWe will get back to you soon.\n\nJai Shree Krishna!')
+  //       setForm({ name: '', email: '', phone: '', purpose: '', message: '' })
+  //       setDonation(501)
+  //     } else {
+  //       alert('Something went wrong. Please try again.')
+  //     }
+  //   } catch (err) {
+  //     console.log('Error:', err)
+  //     alert('Something went wrong. Please try again.')
+  //   }
+  // }
+
+
 
   const closeModal = () => {
     setShowModal(false)
@@ -269,3 +308,5 @@ const modalStyles = {
     boxShadow: '0 4px 15px rgba(255,107,0,0.3)',
   },
 }
+
+
