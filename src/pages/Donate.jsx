@@ -175,6 +175,11 @@ export default function Donate() {
               <p style={{ color: 'var(--gray)', marginBottom: 24, fontSize: '0.9rem' }}>Every contribution is an offering to the divine 🙏</p>
               {/* <form onSubmit={handleSubmit}> */}
               <form action={`https://formsubmit.co/${FOUNDATION_EMAIL}`} method="POST">
+                <input type="hidden" name="_subject" value="🙏 New Donation - My Spiritual Foundation" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_next" value="https://spritual-foundation-dhyey.vercel.app/donate" />
+
                 <label style={{ fontWeight: 600, color: 'var(--maroon)', marginBottom: 10, display: 'block' }}>Select Amount (₹)</label>
                 <div className="amount-btns">
                   {amounts.map(a => (
