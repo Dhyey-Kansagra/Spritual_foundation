@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import PageHeader from '../components/PageHeader'
 import useFadeUp from '../hooks/useFadeUp'
-
+import emailjs from '@emailjs/browser'
 
 const FOUNDATION_EMAIL = 'kpatel12359@gmail.com'
 
@@ -24,48 +24,80 @@ export default function Donate() {
   const [showModal, setShowModal] = useState(false)
   const [emailStatus, setEmailStatus] = useState('')  // 'sent', 'failed', 'no-email'
 
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const donation = selectedAmt || customAmt
     if (!donation) { alert('Please select or enter a donation amount.'); return }
 
     setSending(true)
-    let status = 'no-email'
-
-    // Send via FormSubmit 
-    if (form.email && form.email.trim() !== '') {
-      try {
-        const response = await fetch(`https://formsubmit.co/${FOUNDATION_EMAIL}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            _subject: `🙏 New Donation: ₹${Number(donation).toLocaleString('en-IN')} from ${form.name}`,
-            _replyto: form.email,
-
-            _autoresponse: `🙏 Jai Shree Krishna, ${form.name || 'Dear Devotee'}! Thank you for your generous donation of ₹${Number(donation).toLocaleString('en-IN')} towards ${form.purpose || 'General Seva Fund'}. Your selfless seva will bring smiles to many faces. Manav Seva Madhav Seva - Serving Humanity is Serving God. May Lord Krishna bless you and your family abundantly. With divine blessings, My Spiritual Foundation, Rajkot, Gujarat. Seva Parmo Dharma.`,
-            _replyto: form.email,
-            _cc: form.email,
-            _template: 'table',
-            _captcha: 'false',
-            'Donor Name': form.name || 'Anonymous',
-            'Email': form.email,
-            'Phone': form.phone || 'Not provided',
-            'Donation Amount': `₹${Number(donation).toLocaleString('en-IN')}`,
-            'Seva Purpose': form.purpose || 'General Seva Fund',
-            'Message': form.message || 'No message',
-          })
-        })
-        if (response.ok) { status = 'sent' } else { status = 'failed' }
-      } catch (err) {
-        console.error('FormSubmit Error:', err)
-        status = 'failed'
-      }
+    try {
+      await emailjs.send(
+        'service_1f198yj',
+        'template_4i7s6xb',
+        {
+          to_name: form.name || 'Dear Devotee',
+          to_email: form.email,
+          amount: `₹${Number(donation).toLocaleString('en-IN')}`,
+          purpose: form.purpose || 'General Seva Fund',
+        },
+        'oRwir5858JPD7lRHN'
+      )
+      setSending(false)
+      setEmailStatus('sent')
+      setShowModal(true)
+    } catch (err) {
+      console.log(err)
+      setSending(false)
+      setEmailStatus('failed')
+      setShowModal(true)
     }
-
-    setSending(false)
-    setEmailStatus(status)
-    setShowModal(true)
   }
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault()
+  //   const donation = selectedAmt || customAmt
+  //   if (!donation) { alert('Please select or enter a donation amount.'); return }
+
+  //   setSending(true)
+  //   let status = 'no-email'
+
+  //   // Send via FormSubmit 
+  //   if (form.email && form.email.trim() !== '') {
+  //     try {
+  //       const response = await fetch(`https://formsubmit.co/${FOUNDATION_EMAIL}`, {
+  //         method: 'POST',
+  //         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+  //         body: JSON.stringify({
+  //           _subject: `🙏 New Donation: ₹${Number(donation).toLocaleString('en-IN')} from ${form.name}`,
+  //           _replyto: form.email,
+
+  //           _autoresponse: `🙏 Jai Shree Krishna, ${form.name || 'Dear Devotee'}! Thank you for your generous donation of ₹${Number(donation).toLocaleString('en-IN')} towards ${form.purpose || 'General Seva Fund'}. Your selfless seva will bring smiles to many faces. Manav Seva Madhav Seva - Serving Humanity is Serving God. May Lord Krishna bless you and your family abundantly. With divine blessings, My Spiritual Foundation, Rajkot, Gujarat. Seva Parmo Dharma.`,
+  //           _replyto: form.email,
+  //           _cc: form.email,
+  //           _template: 'table',
+  //           _captcha: 'false',
+  //           'Donor Name': form.name || 'Anonymous',
+  //           'Email': form.email,
+  //           'Phone': form.phone || 'Not provided',
+  //           'Donation Amount': `₹${Number(donation).toLocaleString('en-IN')}`,
+  //           'Seva Purpose': form.purpose || 'General Seva Fund',
+  //           'Message': form.message || 'No message',
+  //         })
+  //       })
+  //       if (response.ok) { status = 'sent' } else { status = 'failed' }
+  //     } catch (err) {
+  //       console.error('FormSubmit Error:', err)
+  //       status = 'failed'
+  //     }
+  //   }
+
+  //   setSending(false)
+  //   setEmailStatus(status)
+  //   setShowModal(true)
+  // }
 
 
   // const handleSubmit = async (e) => {
