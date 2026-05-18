@@ -173,7 +173,8 @@ export default function Donate() {
             <div className="form-card">
               <h2 style={{ color: 'var(--maroon)', marginBottom: 8, fontSize: '1.5rem' }}>Make a Donation</h2>
               <p style={{ color: 'var(--gray)', marginBottom: 24, fontSize: '0.9rem' }}>Every contribution is an offering to the divine 🙏</p>
-              <form onSubmit={handleSubmit}>
+              {/* <form onSubmit={handleSubmit}> */}
+              <form action={`https://formsubmit.co/${FOUNDATION_EMAIL}`} method="POST">
                 <label style={{ fontWeight: 600, color: 'var(--maroon)', marginBottom: 10, display: 'block' }}>Select Amount (₹)</label>
                 <div className="amount-btns">
                   {amounts.map(a => (
