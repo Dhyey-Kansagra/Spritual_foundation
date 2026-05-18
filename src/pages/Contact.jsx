@@ -18,7 +18,7 @@ export default function Contact() {
  const handleSubmit = async (e) => {
   e.preventDefault()
   try {
-    const response = await fetch(`https://formsubmit.co/ajax/${FOUNDATION_EMAIL}`, {
+    const response = await fetch(`https://formsubmit.co/${FOUNDATION_EMAIL}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
