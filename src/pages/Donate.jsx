@@ -3,7 +3,7 @@ import PageHeader from '../components/PageHeader'
 import useFadeUp from '../hooks/useFadeUp'
 
 
-const FOUNDATION_EMAIL = 'abd4864c6578c7c2956b31a35d09fbd1'
+const FOUNDATION_EMAIL = 'kpatel12359@gmail.com'
 
 const amounts = [501, 1001, 2101, 5100, 11000]
 
