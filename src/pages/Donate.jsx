@@ -72,7 +72,7 @@ export default function Donate() {
           <div style={modalStyles.modal} onClick={e => e.stopPropagation()}>
             <div style={modalStyles.omCircle}>🙏</div>
             <h2 style={modalStyles.heading}>Thank You, {form.name || 'Dear Devotee'}!</h2>
-            <p style={modalStyles.amount}>{donationDisplay}</p>
+            <p style={modalStyles.amount}> {donationDisplay}</p>
             <p style={modalStyles.text}>
               May Lord Krishna bless you abundantly for your generous seva.
               <br /><em>"Manav Seva Madhav Seva"</em>
@@ -81,7 +81,7 @@ export default function Donate() {
             {emailStatus === 'sent' && (
               <div style={modalStyles.emailBadge}>
                 <i className="fas fa-check-circle" style={{ color: '#22c55e', marginRight: 8 }}></i>
-                Thank-you email sent to <strong>{form.email}</strong>
+                Thank-you email sent to <strong> {form.email}</strong>
               </div>
             )}
             {emailStatus === 'failed' && (
