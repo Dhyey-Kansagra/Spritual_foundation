@@ -93,7 +93,7 @@ export default function Services() {
         <h2>Want to Support Our Seva?</h2>
         <p>Your contribution — big or small — can make a world of difference in someone's life.</p>
         <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link to="/donate" className="btn-primary">🙏 Donate Now</Link>
+          <Link to="/donate" className="btn-primary"> Donate Now</Link>
           <Link to="/contact" className="btn-secondary" style={{ borderColor: 'white' }}>Become a Volunteer</Link>
         </div>
       </section>

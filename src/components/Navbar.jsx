@@ -22,7 +22,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="topbar">🕉️ Serving Humanity is Serving God — Manav Seva Madhav Seva 🙏</div>
+      <div className="topbar">🕉️ Serving Humanity is Serving God — Manav Seva Madhav Seva</div>
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
           <Link to="/" className="nav-logo">
@@ -37,7 +37,7 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
-            <li><Link to="/donate" className="donate-btn" onClick={() => setOpen(false)}>🙏 Donate Now</Link></li>
+            <li><Link to="/donate" className="donate-btn" onClick={() => setOpen(false)}>Donate Now</Link></li>
           </ul>
           <button className="hamburger" onClick={() => setOpen(!open)} aria-label="Toggle menu">
             <span /><span /><span />

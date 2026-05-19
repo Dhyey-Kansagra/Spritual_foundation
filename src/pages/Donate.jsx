@@ -1,9 +1,7 @@
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
 import PageHeader from '../components/PageHeader'
 import useFadeUp from '../hooks/useFadeUp'
-import emailjs from '@emailjs/browser'
-
-const FOUNDATION_EMAIL = 'kpatel12359@gmail.com'
 
 const amounts = [501, 1001, 2101, 5100, 11000]
 
@@ -22,39 +20,7 @@ export default function Donate() {
   const [form, setForm] = useState({ name: '', phone: '', email: '', purpose: '', message: '' })
   const [sending, setSending] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [emailStatus, setEmailStatus] = useState('')  // 'sent', 'failed', 'no-email'
-
-
-
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-  //   const donation = selectedAmt || customAmt
-  //   if (!donation) { alert('Please select or enter a donation amount.'); return }
-
-  //   setSending(true)
-  //   try {
-  //     await emailjs.send(
-  //       'service_1f198yj',
-  //       'template_4i7s6xb',
-  //       {
-  //         to_name: form.name || 'Dear Devotee',
-  //         to_email: form.email,
-  //         amount: `₹${Number(donation).toLocaleString('en-IN')}`,
-  //         purpose: form.purpose || 'General Seva Fund',
-  //       },
-  //       'oRwir5858JPD7lRHN'
-  //     )
-  //     setSending(false)
-  //     setEmailStatus('sent')
-  //     setShowModal(true)
-  //   } catch (err) {
-  //     console.log(err)
-  //     setSending(false)
-  //     setEmailStatus('failed')
-  //     setShowModal(true)
-  //   }
-  // }
+  const [emailStatus, setEmailStatus] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -62,89 +28,28 @@ export default function Donate() {
     if (!donation) { alert('Please select or enter a donation amount.'); return }
 
     setSending(true)
-    let status = 'no-email'
-
-    // Send via FormSubmit 
-    if (form.email && form.email.trim() !== '') {
-      try {
-        const response = await fetch(`https://formsubmit.co/ajax/${FOUNDATION_EMAIL}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            _subject: `🙏 New Donation: ₹${Number(donation).toLocaleString('en-IN')} from ${form.name}`,
-            _replyto: form.email,
-
-            _autoresponse: `🙏 Jai Shree Krishna, ${form.name || 'Dear Devotee'}! Thank you for your generous donation of ₹${Number(donation).toLocaleString('en-IN')} towards ${form.purpose || 'General Seva Fund'}. Your selfless seva will bring smiles to many faces. Manav Seva Madhav Seva - Serving Humanity is Serving God. May Lord Krishna bless you and your family abundantly. With divine blessings, My Spiritual Foundation, Rajkot, Gujarat. Seva Parmo Dharma.`,
-            _replyto: form.email,
-            _cc: form.email,
-            _template: 'table',
-            _captcha: 'false',
-            'Donor Name': form.name || 'Anonymous',
-            'Email': form.email,
-            'Phone': form.phone || 'Not provided',
-            'Donation Amount': `₹${Number(donation).toLocaleString('en-IN')}`,
-            'Seva Purpose': form.purpose || 'General Seva Fund',
-            'Message': form.message || 'No message',
-          })
-        })
-        if (response.ok) { status = 'sent' } else { status = 'failed' }
-      } catch (err) {
-        console.error('FormSubmit Error:', err)
-        status = 'failed'
-      }
+    try {
+      await emailjs.send(
+        'service_1f198yj',
+        'template_4i7s6xb',
+        {
+          to_name: form.name || 'Dear Devotee',
+          to_email: form.email,
+          amount: `₹${Number(donation).toLocaleString('en-IN')}`,
+          purpose: form.purpose || 'General Seva Fund',
+        },
+        'oRwir5858JPD7lRHN'
+      )
+      setSending(false)
+      setEmailStatus('sent')
+      setShowModal(true)
+    } catch (err) {
+      console.log(err)
+      setSending(false)
+      setEmailStatus('failed')
+      setShowModal(true)
     }
-
-    setSending(false)
-    setEmailStatus(status)
-    setShowModal(true)
   }
-
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-  //   try {
-  //     const response = await fetch(`https://formsubmit.co/ajax/${FOUNDATION_EMAIL}`, {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-  //       body: JSON.stringify({
-  //         _subject: `📩 New Donation from ${form.name}`,
-  //         _captcha: 'false',
-  //         _template: 'table',
-  //         'Name': form.name,
-  //         'Email': form.email,
-  //         'Phone': form.phone || 'Not provided',
-  //         'amount': `₹${Number(donation).toLocaleString('en-IN')}`,
-  //         'Purpose': form.purpose || 'General Seva Fund',
-  //         'Message': form.message || 'No message',
-  //       })
-  //     })
-
-  //     await emailjs.send(
-  //       'service_1f198yj',
-  //       'template_4i7s6xb',
-  //       {
-  //         to_name: form.name,
-  //         to_email: form.email,
-  //         amount: `₹${Number(selectedAmt || customAmt).toLocaleString('en-IN')}`,
-  //         purpose: form.purpose || 'General Seva Fund',
-  //       },
-  //       'oRwir5858JPD7lRHN'
-  //     )
-
-  //     if (response.ok) {
-  //       alert('🙏 Thank you! Your donation has been received.\nWe will get back to you soon.\n\nJai Shree Krishna!')
-  //       setForm({ name: '', email: '', phone: '', purpose: '', message: '' })
-  //       setDonation(501)
-  //     } else {
-  //       alert('Something went wrong. Please try again.')
-  //     }
-  //   } catch (err) {
-  //     console.log('Error:', err)
-  //     alert('Something went wrong. Please try again.')
-  //   }
-  // }
-
-
 
   const closeModal = () => {
     setShowModal(false)
@@ -182,17 +87,11 @@ export default function Donate() {
             {emailStatus === 'failed' && (
               <div style={{ ...modalStyles.emailBadge, background: '#fef2f2', borderColor: '#fca5a5' }}>
                 <i className="fas fa-exclamation-circle" style={{ color: '#ef4444', marginRight: 8 }}></i>
-                Could not send email. Please verify your email in FormSubmit (check inbox).
-              </div>
-            )}
-            {emailStatus === 'no-email' && (
-              <div style={{ ...modalStyles.emailBadge, background: '#fefce8', borderColor: '#fde047' }}>
-                <i className="fas fa-info-circle" style={{ color: '#ca8a04', marginRight: 8 }}></i>
-                No email provided — no confirmation email sent.
+                Could not send email. Please try again.
               </div>
             )}
 
-            <p style={{ marginTop: 16, fontSize: '1.2rem', color: 'var(--gold)' }}>🙏 Jai Shree Krishna 🙏</p>
+            <p style={{ marginTop: 16, fontSize: '1.2rem', color: 'var(--gold)' }}>Jai Shree Krishna</p>
             <button onClick={closeModal} style={modalStyles.closeBtn}>Close</button>
           </div>
         </div>
@@ -204,14 +103,8 @@ export default function Donate() {
             {/* FORM */}
             <div className="form-card">
               <h2 style={{ color: 'var(--maroon)', marginBottom: 8, fontSize: '1.5rem' }}>Make a Donation</h2>
-              <p style={{ color: 'var(--gray)', marginBottom: 24, fontSize: '0.9rem' }}>Every contribution is an offering to the divine 🙏</p>
+              <p style={{ color: 'var(--gray)', marginBottom: 24, fontSize: '0.9rem' }}>Every contribution is an offering to the divine.</p>
               <form onSubmit={handleSubmit}>
-              {/* <form action={`https://formsubmit.co/${FOUNDATION_EMAIL}`} method="POST"> */}
-                <input type="hidden" name="_subject" value="🙏 New Donation - My Spiritual Foundation" />
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_template" value="table" />
-                <input type="hidden" name="_next" value="https://spritual-foundation-dhyey.vercel.app/donate" />
-
                 <label style={{ fontWeight: 600, color: 'var(--maroon)', marginBottom: 10, display: 'block' }}>Select Amount (₹)</label>
                 <div className="amount-btns">
                   {amounts.map(a => (
@@ -246,7 +139,7 @@ export default function Donate() {
                   <input type="tel" placeholder="+91 XXXXX XXXXX" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} required />
                 </div>
                 <div className="form-group">
-                  <label>Email <span style={{ color: 'var(--saffron)', fontSize: '0.8rem' }}></span></label>
+                  <label>Email</label>
                   <input type="email" placeholder="your@email.com" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
                 </div>
                 <div className="form-group">
@@ -258,7 +151,7 @@ export default function Donate() {
                   {sending ? (
                     <><i className="fas fa-spinner fa-spin" style={{ marginRight: 8 }}></i>Processing...</>
                   ) : (
-                    '🙏 Donate Now — Seva Parmo Dharma'
+                    'Donate Now — Seva Parmo Dharma'
                   )}
                 </button>
               </form>
@@ -278,12 +171,12 @@ export default function Donate() {
 
               <div className="bank-details fade-up">
                 <h3>🏦 Bank Transfer Details</h3>
-                <p><strong>Account Name:</strong> My Spiritual Foundation</p>
-                <p><strong>Bank:</strong> State Bank of India</p>
-                <p><strong>Account No:</strong> XXXX XXXX XXXX 1234</p>
-                <p><strong>IFSC Code:</strong> SBIN0001234</p>
-                <p><strong>Branch:</strong> Rajkot Main Branch</p>
-                <p style={{ marginTop: 12 }}><strong>UPI:</strong> myspiritualfoundation@sbi</p>
+                <p><strong>Account Name :</strong> MY SPIRITUAL FOUNDATION</p>
+                <p><strong>Bank :</strong> HDFC BANK</p>
+                <p><strong>Account No :</strong> 50200014120730</p>
+                <p><strong>IFSC Code :</strong> HDFC0000379</p>
+                <p><strong>Branch :</strong> Kalawad road branch, Rajkot.</p>
+                <p style={{ marginTop: 12 }}><strong>UPI :</strong> myspiritualfoundatio.62312585@hdfcbank</p>
               </div>
 
               <div className="tax-notice fade-up" style={{ marginTop: 16 }}>
@@ -346,5 +239,3 @@ const modalStyles = {
     boxShadow: '0 4px 15px rgba(255,107,0,0.3)',
   },
 }
-
-

@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import emailjs from '@emailjs/browser'
 import PageHeader from '../components/PageHeader'
 import useFadeUp from '../hooks/useFadeUp'
 
-const FOUNDATION_EMAIL = 'kpatel12359@gmail.com'
 const volTypes = [
   { icon: '🍱', title: 'Food Seva Volunteer', desc: 'Help prepare and distribute food kits to families in need.' },
   { icon: '📚', title: 'Education Volunteer', desc: 'Teach, tutor, or distribute educational materials to students.' },
@@ -14,40 +14,63 @@ const volTypes = [
 export default function Contact() {
   const ref = useFadeUp()
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
+  const [sending, setSending] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [status, setStatus] = useState('')
 
- const handleSubmit = async (e) => {
-  e.preventDefault()
-  try {
-    const response = await fetch(`https://formsubmit.co/${FOUNDATION_EMAIL}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        _subject: `📩 New Contact Message from ${form.name}`,
-        _replyto: form.email,
-        _autoresponse: `🙏 Jai Shree Krishna, ${form.name}!\n\nThank you for contacting My Spiritual Foundation.\nWe will get back to you within 24 hours.\n\n"Manav Seva Madhav Seva"\n\nWith divine blessings,\nMy Spiritual Foundation\nRajkot, Gujarat 🙏`,
-        _captcha: 'false',
-        _template: 'table',
-        'Name': form.name,
-        'Email': form.email,
-        'Phone': form.phone || 'Not provided',
-        'Subject': form.subject || 'General Inquiry',
-        'Message': form.message,
-      })
-    })
-    if (response.ok) {
-      alert('🙏 Thank you! Your message has been sent.\nWe will get back to you soon.\n\nJai Shree Krishna!')
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setSending(true)
+    try {
+      await emailjs.send(
+        'service_1f198yj',
+        'template_i6b5i69',
+        {
+          from_name: form.name,
+          from_email: form.email,
+          phone: form.phone || 'Not provided',
+          subject: form.subject || 'General Inquiry',
+          message: form.message,
+        },
+        'oRwir5858JPD7lRHN'
+      )
+      setSending(false)
+      setStatus('sent')
+      setShowModal(true)
       setForm({ name: '', email: '', phone: '', subject: '', message: '' })
-    } else {
-      alert('Something went wrong. Please try again.')
+    } catch (err) {
+      console.log(err)
+      setSending(false)
+      setStatus('failed')
+      setShowModal(true)
     }
-  } catch (err) {
-    alert('Something went wrong. Please try again.')
   }
-}
 
   return (
     <div ref={ref}>
       <PageHeader title="Contact Us" subtitle="We'd Love to Hear From You" breadcrumb="Contact" />
+
+      {/* SUCCESS MODAL */}
+      {showModal && (
+        <div style={modalStyles.overlay} onClick={() => setShowModal(false)}>
+          <div style={modalStyles.modal} onClick={e => e.stopPropagation()}>
+            <div style={modalStyles.circle}>{status === 'sent' ? '🙏' : '❌'}</div>
+            {status === 'sent' ? (
+              <>
+                <h2 style={modalStyles.heading}>Message Sent!</h2>
+                <p style={modalStyles.text}>Thank you for reaching out. We will get back to you within 24 hours.<br /><em>"Manav Seva Madhav Seva"</em></p>
+                <p style={{ marginTop: 16, fontSize: '1.2rem', color: 'var(--gold)' }}>Jai Shree Krishna</p>
+              </>
+            ) : (
+              <>
+                <h2 style={modalStyles.heading}>Something went wrong!</h2>
+                <p style={modalStyles.text}>Please try again or contact us directly.</p>
+              </>
+            )}
+            <button onClick={() => setShowModal(false)} style={modalStyles.closeBtn}>Close</button>
+          </div>
+        </div>
+      )}
 
       <section className="section">
         <div className="container">
@@ -56,9 +79,9 @@ export default function Contact() {
             <div className="info-cards">
               {[
                 ['fas fa-map-marker-alt', 'Our Location', 'A/8, Aalap Avenue, Pushkardham Main Road, JK Chowk, Rajkot, Gujarat, India'],
-                ['fas fa-phone-alt', 'Phone', '+91 98765 43210\n+91 98765 43211'],
-                ['fas fa-envelope', 'Email', 'info@myspiritualfoundation.org\nseva@myspiritualfoundation.org'],
-                ['fas fa-clock', 'Seva Hours', 'Monday – Sunday: 9:00 AM – 5:00 PM\nEveryday: By Appointment'],
+                ['fas fa-phone-alt', 'Phone', '+91 88666 60301'],
+                ['fas fa-envelope', 'Email', 'myspiritualfoundationhome@gmail.com'],
+                ['fas fa-clock', 'Seva Hours', 'Monday – Saturday: 10:00 AM – 5:00 PM\nAll Day: By Appointment'],
               ].map(([icon, title, text], i) => (
                 <div className="info-card" key={i}>
                   <div className="ic-icon"><i className={icon}></i></div>
@@ -73,7 +96,7 @@ export default function Contact() {
             {/* FORM */}
             <div className="form-card">
               <h3 style={{ color: 'var(--maroon)', marginBottom: 4, fontSize: '1.3rem' }}>Send Us a Message</h3>
-              <p style={{ color: 'var(--gray)', marginBottom: 20, fontSize: '0.9rem' }}>We'll respond within 24 hours 🙏</p>
+              <p style={{ color: 'var(--gray)', marginBottom: 20, fontSize: '0.9rem' }}>We'll respond within 24 hours</p>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label>Full Name</label>
@@ -85,7 +108,7 @@ export default function Contact() {
                 </div>
                 <div className="form-group">
                   <label>Phone</label>
-                  <input type="tel" placeholder="+91 XXXXX XXXXX" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
+                  <input type="tel" placeholder="+91 98765 43210" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
                 </div>
                 <div className="form-group">
                   <label>Subject</label>
@@ -102,7 +125,14 @@ export default function Contact() {
                   <label>Message</label>
                   <textarea rows={4} placeholder="Your message..." value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} required></textarea>
                 </div>
-                <button type="submit" className="submit-btn">🙏 Send Message</button>
+                <button type="submit" className="submit-btn" disabled={sending}
+                  style={sending ? { opacity: 0.7, cursor: 'not-allowed' } : {}}>
+                  {sending ? (
+                    <><i className="fas fa-spinner fa-spin" style={{ marginRight: 8 }}></i>Sending...</>
+                  ) : (
+                    'Send Message'
+                  )}
+                </button>
               </form>
             </div>
           </div>
@@ -118,7 +148,7 @@ export default function Contact() {
       <section className="section" style={{ background: 'var(--light-gray)' }}>
         <div className="container">
           <div className="section-title fade-up">
-            <div className="ornament"><span>🙏</span> ✦ <span>🙏</span></div>
+            {/* <div className="ornament"><span>🙏</span> ✦ <span>🙏</span></div> */}
             <h2>Become a Sevak</h2>
             <p>Join our family of volunteers and make a difference</p>
           </div>
@@ -132,10 +162,46 @@ export default function Contact() {
             ))}
           </div>
           <div style={{ textAlign: 'center', marginTop: 30 }} className="fade-up">
-            <Link to="/donate" className="btn-primary">🙏 Support Our Seva</Link>
+            <Link to="/donate" className="btn-primary">Support Our Seva</Link>
           </div>
         </div>
       </section>
     </div>
   )
+}
+
+/* ── Modal Inline Styles ── */
+const modalStyles = {
+  overlay: {
+    position: 'fixed', inset: 0, zIndex: 9999,
+    background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    padding: 20,
+  },
+  modal: {
+    background: '#FFF8F0', borderRadius: 24, padding: '40px 36px',
+    maxWidth: 440, width: '100%', textAlign: 'center',
+    boxShadow: '0 20px 60px rgba(107,26,26,0.2)',
+    border: '2px solid rgba(212,175,55,0.3)',
+  },
+  circle: {
+    width: 80, height: 80, borderRadius: '50%', margin: '0 auto 16px',
+    background: 'linear-gradient(135deg, #FF6B00, #ff8533)',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    fontSize: '2.5rem',
+  },
+  heading: {
+    fontFamily: 'Cinzel, serif', color: '#6B1A1A',
+    fontSize: '1.5rem', marginBottom: 8,
+  },
+  text: {
+    color: '#666', lineHeight: 1.7, fontSize: '0.95rem',
+  },
+  closeBtn: {
+    marginTop: 20, padding: '12px 40px', border: 'none', borderRadius: 50,
+    background: 'linear-gradient(135deg, #FF6B00, #ff8533)',
+    color: 'white', fontWeight: 700, fontSize: '1rem', cursor: 'pointer',
+    fontFamily: 'Cinzel, serif', letterSpacing: 1,
+    boxShadow: '0 4px 15px rgba(255,107,0,0.3)',
+  },
 }

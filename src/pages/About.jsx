@@ -94,7 +94,7 @@ export default function About() {
       <section className="volunteer-cta">
         <h2>Support Our Mission</h2>
         <p>Your generous contribution can transform lives and create lasting impact in our community.</p>
-        <Link to="/donate" className="btn-secondary" style={{ borderColor: 'white' }}>🙏 Donate Now</Link>
+        <Link to="/donate" className="btn-secondary" style={{ borderColor: 'white' }}> Donate Now</Link>
       </section>
     </div>
   )

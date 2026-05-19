@@ -12,10 +12,10 @@ export default function Footer() {
             <p style={{ marginTop: '8px', fontStyle: 'italic', color: 'var(--gold)' }}>"Seva Parmo Dharma"</p>
             <div className="social-icons">
 
-              <a href="https://www.instagram.com/myspiritualfoundation?igsh=ejVycDdzeHIwbXI0" target="_blank" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
+              <a href="https://www.facebook.com/share/1DssXQSo1z/" target="_blank" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
               <a href="https://www.instagram.com/myspiritualfoundation?igsh=ejVycDdzeHIwbXI0" target="_blank" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
               <a href="https://youtube.com/@myspiritualfoundationhome?si=gteT6oXW8_cmr3VB" target="_blank" aria-label="YouTube"><i className="fab fa-youtube"></i></a>
-              <a href="https://wa.me/917623079610" target="_blank" aria-label="WhatsApp"><i className="fab fa-whatsapp"></i></a>
+              <a href="https://wa.me/918866660301" target="_blank" aria-label="WhatsApp"><i className="fab fa-whatsapp"></i></a>
             </div>
           </div>
           <div>
@@ -42,14 +42,14 @@ export default function Footer() {
             <h4>Contact</h4>
             <ul>
               <li style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}><i className="fas fa-map-marker-alt" style={{ color: 'var(--saffron)', marginTop: '3px' }}></i><span>A/8, Aalap Avenue, Pushkardham Main Road, JK Chowk, Rajkot, Gujarat</span></li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><i className="fas fa-phone" style={{ color: 'var(--saffron)' }}></i><span>+91 98765 43210</span></li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><i className="fas fa-envelope" style={{ color: 'var(--saffron)' }}></i><span>info@myspiritualfoundation.org</span></li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><i className="fas fa-phone" style={{ color: 'var(--saffron)' }}></i><span>+91 88666 60301</span></li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><i className="fas fa-envelope" style={{ color: 'var(--saffron)' }}></i><span>myspiritualfoundationhome@gmail.com</span></li>
 
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} My Spiritual Foundation. Made with <span className="heart">♥</span> for Seva | 🙏 Jai Shree Krishna</p>
+          <p>© {new Date().getFullYear()} My Spiritual Foundation. Made with <span className="heart"></span> for Seva by DK |  Jai Shree Krishna</p>
         </div>
       </div>
     </footer>

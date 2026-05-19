@@ -28,13 +28,13 @@ export default function Home() {
       {/* HERO */}
       <section className="hero">
         <div className="hero-content">
-          <p>🙏 Jai Shree Krishna 🙏</p>
+          <p> Jai Shree Krishna </p>
           <h1>My <span className="gold">Spiritual</span><br />Foundation</h1>
           <p>"Serving Humanity is Serving God"</p>
           <div className="subtitle">✦ Seva Parmo Dharma ✦</div>
           <div className="hero-btns">
-            <Link to="/donate" className="btn-primary">🙏 Donate Now</Link>
-            <Link to="/services" className="btn-secondary">Our Seva ☸</Link>
+            <Link to="/donate" className="btn-primary"> Donate Now</Link>
+            <Link to="/services" className="btn-secondary">Our Seva </Link>
           </div>
         </div>
       </section>
@@ -144,7 +144,7 @@ export default function Home() {
       <section className="section">
         <div className="container">
           <div className="section-title fade-up">
-            <div className="ornament"><span>🙏</span> ✦ <span>🙏</span></div>
+            {/* <div className="ornament"><span>🙏</span> ✦ <span>🙏</span></div> */}
             <h2>Visit Our Ashram</h2>
             <p>We welcome you with open arms</p>
           </div>
